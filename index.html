@@ -156,30 +156,26 @@ fetch("http://localhost:3000/products")
 </script>
 <script>
 fetch("products.json")
-  .then(response => response.json())
+  .then(res => res.json())
   .then(products => {
     const container = document.getElementById("arrivals");
-
-    if (!container) {
-      console.error("Arrivals container not found");
-      return;
-    }
-
     container.innerHTML = "";
 
-    products.forEach(product => {
+    products.forEach(p => {
       container.innerHTML += `
-        <div class="product-card">
-          <img src="${product.image}" alt="${product.name}">
-          <a href="#">${product.name}</a>
-          <p>$${product.price.toFixed(2)}</p>
-          <div class="stars">★★★★★</div>
-        </div>
+        <a href="${p.link}" class="product-link">
+          <div class="product-card">
+            <img src="${p.image}" alt="${p.name}">
+            <h3>${p.name}</h3>
+            <p>$${p.price.toFixed(2)}</p>
+            <div class="stars">★★★★★</div>
+          </div>
+        </a>
       `;
     });
-  })
-  .catch(error => console.error("Error loading products:", error));
+  });
 </script>
 </body>
 </html>
+
 
