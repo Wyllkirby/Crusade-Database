@@ -96,16 +96,27 @@ header, section {
     justify-content: space-around;
     flex-wrap: wrap;
 }
-
-.product {
-    background: white;
-    color: black;
-    padding: 20px;
-    margin: 10px;
-    width: 200px;
-    text-align: center;
-    border-radius: 10px;
+<>
+.products {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  flex-wrap: wrap;
 }
+
+.product-card {
+  background: #fff;
+  padding: 15px;
+  border-radius: 12px;
+  width: 220px;
+  text-align: center;
+}
+
+.product-card img {
+  width: 100%;
+  height: auto;
+}
+<>
 
 .product img {
     width: 100%;
@@ -462,3 +473,4 @@ body.dark-theme {
 .checkout-btn:hover {
   background: #45a049;
 }
+
