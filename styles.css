@@ -96,6 +96,15 @@ header, section {
     justify-content: space-around;
     flex-wrap: wrap;
 }
+.product-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.product-link:hover {
+  transform: scale(1.02);
+}
+
 <>
 .products {
   display: flex;
@@ -473,4 +482,5 @@ body.dark-theme {
 .checkout-btn:hover {
   background: #45a049;
 }
+
 
