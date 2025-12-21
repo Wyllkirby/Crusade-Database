@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Cart - Crusaders</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body class="body-frame">
+  <button onclick="history.back()" class="back-btn">← Back</button>
+  <h1 class="h1-f">Your Cart</h1>
+
+  <main class="cart-container" id="cart-container"></main>
+
+  <div class="cart-actions" id="cart-actions" style="display: none;">
+    <button class="clear-btn" onclick="clearCart()">🧹 Clear Cart</button>
+    <button class="checkout-btn" onclick="checkout()">🛒 Checkout</button>
+  </div>
+
+  <script>
+    function loadCart() {
+      const cartContainer = document.getElementById('cart-container');
+      const actionBtns = document.getElementById('cart-actions');
+      const rawItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+      const grouped = {};
+
+      rawItems.forEach(item => {
+        const key = `${item.title}_${item.size}_${item.image}`; // ✅ make key unique by item
+        if (!grouped[key]) {
+          grouped[key] = { ...item, qty: 1 };
+        } else {
+          grouped[key].qty++;
+        }
+      });
+
+      const items = Object.values(grouped);
+
+      if (items.length === 0) {
+        cartContainer.innerHTML = `<div class="empty-cart">Your cart is currently empty.</div>`;
+        actionBtns.style.display = "none";
+        return;
+      }
+
+      actionBtns.style.display = "flex";
+      let total = 0;
+      cartContainer.innerHTML = "";
+
+      items.forEach(item => {
+        total += item.qty * item.price;
+
+        const itemEl = document.createElement("div");
+        itemEl.className = "cart-item";
+        itemEl.innerHTML = `
+          <img src="${item.image}" alt="${item.title}" />
+          <div class="item-details">
+            <p><strong>${item.title}</strong></p>
+            <p>Size: ${item.size}</p>
+            <p>Price: $${item.price.toFixed(2)}</p>
+            <p>Qty: ${item.qty}</p>
+          </div>
+          <div class="item-actions">
+            <button onclick="removeItem('${item.title}', '${item.size}', '${item.image}')">🗑️ Delete</button>
+          </div>
+        `;
+        cartContainer.appendChild(itemEl);
+      });
+
+      const totalEl = document.createElement("div");
+      totalEl.className = "total";
+      totalEl.textContent = `Total: $${total.toFixed(2)}`;
+      cartContainer.appendChild(totalEl);
+    }
+
+    function removeItem(title, size, image) {
+      const rawItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+      const newItems = [];
+
+      let removed = false;
+      for (let i = 0; i < rawItems.length; i++) {
+        if (rawItems[i].title === title && rawItems[i].size === size && rawItems[i].image === image && !removed) {
+          removed = true;
+        } else {
+          newItems.push(rawItems[i]);
+        }
+      }
+
+      localStorage.setItem("cartItems", JSON.stringify(newItems));
+      updateCartCount();
+      loadCart();
+    }
+
+    function clearCart() {
+      if (confirm("Are you sure you want to clear the cart?")) {
+        localStorage.removeItem("cartItems");
+        updateCartCount();
+        loadCart();
+      }
+    }
+
+    function checkout() {
+      alert("Checkout process would start here. Thank you for buying at Crusaders Merch Shop!.");
+    }
+
+    function updateCartCount() {
+      const newCount = JSON.parse(localStorage.getItem("cartItems"))?.length || 0;
+      const countElement = document.getElementById("cart-count");
+      if (countElement) {
+        countElement.textContent = newCount;
+      }
+    }
+
+    loadCart();
+  </script>
+</body>
+</html>

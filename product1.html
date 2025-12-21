@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dark Club Tee - Crusaders</title>
+  <link rel="stylesheet" href="styles.css" />
+
+</head>
+
+<body class="dark-theme">
+  <header class="product-header">
+    <a href="index.html" class="logo">
+      <img src="logo.png" alt="Shop Logo" style="height: 100px;" />
+    </a>
+    <div class="cart" onclick="window.location.href='cart.html'">🛒 <span id="cart-count">0</span></div>
+  </header>
+
+  <main class="container">
+    <section class="product-layout">
+      <div class="product-image-section">
+        <img src="shirt1.png" alt="Product Image" class="main-image" />
+        <div class="thumbnail-row">
+          <img src="shirt2.png" alt="Dark Club Tee" class="thumbnail selected" data-title="Dark Club Tee" data-price="40.00" />
+          <img src="shirt3.png" alt="Crusader Hoodie" class="thumbnail" data-title="Crusader Hoodie" data-price="60.00" />
+          <img src="shirt4.png" alt="Champion Sweater" class="thumbnail" data-title="Champion Sweater" data-price="55.00" />
+        </div>
+      </div>
+
+      <div class="product-info">
+        <h1 class="product-title">Dark Club Tee</h1>
+        <div class="product-price" data-price="40.00">$40.00 USD</div>
+
+        <p class="product-description">
+          This dark-themed club tee is made with premium organic cotton. It combines modern minimalism with classic
+          comfort.
+        </p>
+        <p class="product-note">
+          Ships worldwide. Orders dispatched within 2 business days.
+        </p>
+
+        <div class="product-options">
+          <div class="sizes">
+            <strong>Select Size:</strong><br />
+            <button>XS</button>
+            <button>S</button>
+            <button>M</button>
+            <button>L</button>
+            <button>XL</button>
+            <button>2XL</button>
+          </div>
+        </div>
+
+        <div class="buy-buttons">
+          <button class="add-cart">Add to Cart</button>
+          <button class="buy-now">Buy Now</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    function updateCartDisplay() {
+      const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+      document.getElementById("cart-count").textContent = cartItems.length;
+    }
+
+    updateCartDisplay();
+    const mainImage = document.querySelector(".main-image");
+    const thumbnails = document.querySelectorAll(".thumbnail");
+
+    thumbnails.forEach(thumb => {
+      thumb.addEventListener("click", () => {
+        mainImage.src = thumb.src;
+        thumbnails.forEach(t => t.classList.remove("selected"));
+        thumb.classList.add("selected");
+        document.querySelector(".product-title").textContent = thumb.dataset.title;
+        document.querySelector(".product-price").textContent = `$${parseFloat(thumb.dataset.price).toFixed(2)} USD`;
+        document.querySelector(".product-price").dataset.price = parseFloat(thumb.dataset.price);
+      });
+    });
+
+    const sizeButtons = document.querySelectorAll(".sizes button");
+    let selectedSize = null;
+
+    sizeButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        sizeButtons.forEach(b => b.classList.remove("selected"));
+        btn.classList.add("selected");
+        selectedSize = btn.textContent;
+      });
+    });
+    const addToCartBtn = document.querySelector(".add-cart");
+    const productTitle = document.querySelector(".product-title").textContent;
+    const productPrice = document.querySelector(".product-price").dataset.price;
+    const productImage = document.querySelector(".main-image").src;
+
+    addToCartBtn.addEventListener("click", () => {
+      if (!selectedSize) {
+        alert("Please select a size before adding to cart.");
+        return;
+      }
+
+      const productTitle = document.querySelector(".product-title").textContent;
+      const productPrice = parseFloat(document.querySelector(".product-price").dataset.price);
+      const productImage = document.querySelector(".main-image").src;
+
+      const newItem = {
+        title: productTitle,
+        size: selectedSize,
+        price: productPrice,
+        image: productImage
+      };
+
+      const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+      cartItems.push(newItem);
+      localStorage.setItem("cartItems", JSON.stringify(cartItems));
+      updateCartDisplay();
+      alert(`Added ${productTitle} (Size: ${selectedSize}) to cart!`);
+    });
+
+    document.querySelector(".buy-now").addEventListener("click", () => {
+      if (!selectedSize) {
+        alert("Please select a size before buying.");
+        return;
+      }
+
+      const productTitle = document.querySelector(".product-title").textContent;
+      const productPrice = parseFloat(document.querySelector(".product-price").dataset.price);
+      
+      alert(`Buying 1 x ${productTitle} (Size: ${selectedSize}) for $${productPrice.toFixed(2)}.`);
+    });
+
+  </script>
+</body>
+
+</html>

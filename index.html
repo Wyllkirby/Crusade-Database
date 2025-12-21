@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Street Style & Co - Crusaders</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js"></script>
+    <body background="BackgroundP.jpg"></body>
+</head>
+<body>
+    <div class="cart-icon" onclick="location.href='cart.html'">
+        🛒 <span id="cart-count">0</span>
+    </div>
+    <header class="hero">
+        <h1>CRU<br>SA<br>DERS</h1>
+        <img src="logo.png" alt="Shirt" class="hero-shirt"/>
+        <p>Check out our Captivating Cities shirt collection</p>
+        <a href="#arrivals" class="button">EXPLORE NOW</a>
+    </header>
+
+    <section class="section-image">
+        <img src="product-main.png" alt="Model"/>
+        <h2>WE'RE PROUD OF OUR ROOTS</h2>
+        <p>We’re a homegrown label run by locals, made for locals. We care about our people, and we care about our planet. So, we proudly pitch in where we can.</p>
+    </section>
+
+    <section>
+        <h2>WE'RE PROUD OF OUR CLOTHES</h2>
+    </section>
+
+    <section class="section-image">
+        <img src="model1.jpg" alt="Model"/>
+        <div><p>🧑‍🎨<br>DESIGNED BY LOCALS</p></div>
+        <div><p>📏<br>INCLUSIVE SIZES</p></div>
+        <div><p>🌍<br>ECO-FRIENDLY PACKAGING</p></div>
+    </section>
+
+    <section class="new-arrivals" id="arrivals">
+        <h2>NEW ARRIVALS</h2>
+        <div class="products">
+            <div class="product">
+                <div id="product-list"></div>
+                <a href="product1.html">
+                <img src="shirt2.png" alt="City of Shirts"/>
+                <p>City of Shirts<br><strong>$30.00</strong></p>
+                 <div class="product-rating">★★★★★</div>
+                </a>
+            </div>
+            <div class="product">
+                <a href="product1.html">
+                <img src="shirt3.png" alt="Street Sweat Hoodie"/>
+                <p>Street Sweat Hoodie<br><strong>$55.00</strong></p>
+                <div class="product-rating">★★★★★</div>
+                </a>
+            </div>
+            <div class="product">
+                <a href="product1.html">
+                <img src="shirt4.png" alt="Urban Sweat Shirt"/>
+                <p>Urban Sweat Shirt<br><strong>$40.00</strong></p>
+                <div class="product-rating">★★★★★</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="client-reviews">
+        <div class="reviews">
+            <h3>Client Reviews</h3>
+            <img src="charles.jpg" alt="">
+            <p>Shirt was super comfy and lightweight! I can feel the air passing thru the material and didnt 
+                feel hot at all while wearing it. Will be replacing all my old shirts with this</p>
+            <h2>Charles Bobbage</h2>
+        </div>
+
+        <div class="reviews">
+            <img src="orby.jpg" alt="">
+            <p>Bought this for my father. He actually love this shirt, the fabric is comfortable
+                , cool, and fits perfectly for daily everyday outfit</p>
+            <h2>Ivan Dicdiquin</h2>   
+        </div>
+
+        
+        <div class="reviews">
+            <img src="ivan.jpg" alt="">
+            <p>Shirt was super comfy and lightweight! I can feel the air passing thru the material
+                 and didnt feel hot at all while wearing it. Will be replacing all my old shirts with this</p>
+            <h2>PAPA Orbs</h2>
+            
+        </div>
+        
+
+    </section>
+
+    <section class="press">
+        <h2>PRESS</h2>
+        <p>\"Boost your credibility by adding quotes from articles written about your brand.\"<br>— YOUTH CULTURE MAGAZINE</p>
+        <p>— STREETWEAR DAILY</p>
+        <p>— IDEA MEDIA</p>
+    </section>
+
+    <section class="contact">
+        <h2>REACH OUT FOR INQUIRIES</h2>
+        <div class="contact-info">
+            <div class="first-info">
+                <img src="shirt1.png" alt="">
+            
+                <p>3245 LA PAZ Homes II, <br> Cavite, Philippines</p>
+                <p>(323)-456-7890</p>
+                <p>hello@streetstyleco.com</p>
+
+            <a href="https://www.facebook.com/lesternva.12" target="_blank" rel="noopener noreferrer">FB</a> |
+            <a href="https://www.instagram.com/usernamw0679789999?igsh=OXJoaW91anhrOXpm" target="_blank" rel="noopener noreferrer">IG</a>
+            </div>
+
+        <div class="second-info">
+            <h4>Support</h4>
+            <p>Contact</p>
+            <p>About page</p>
+            <p>Size Guide</p>
+            <p>Shopping & Resturn</p>
+            <p>Privacy</p>
+        </div>
+
+        <div class="third-info">
+            <h4>Shop</h4>
+            <p> Men's Shopping</p>
+            <p>Kid's Shopping</p>
+            <p>Discount</p>
+        
+        </div>
+            <div class="fourth-info">
+            <h4>Company</h4>
+            <p>About</p>
+            <p>Blog</p>
+            <p>Affiliate</p>
+            <p>Login</p>
+        </div>
+
+        <div class="five">
+            <h4>Subcribe</h4>
+            <p>Recieve Updates, Hot Deals, Discount Sent Straight In your Inbox Daily</p>
+            <p>Sign up and be the first-in-the known about new arrivals, promotions, instore 
+                events and more.</p>
+            <p>Recieve Updates, Hot Deals, Discount Sent Straight In your Inbox Daily</p>
+        </div>
+    </section>
+    <div class="end-text"></div>
+    <p>Copyright @2025. All rights Reserved.Designd by Mga Kulas.</p>
+    <script>
+        const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+        document.getElementById("cart-count").textContent = cartItems.length;
+    </script>
+    <script>
+fetch("http://localhost:3000/products")
+  .then(response => response.json())
+  .then(products => {
+    const container = document.getElementById("product-list");
+
+    products.forEach(product => {
+      const item = document.createElement("div");
+      item.className = "product";
+
+      item.innerHTML = `
+        <img src="assets/${product.image}" alt="${product.name}">
+        <h3>${product.name}</h3>
+        <p>₱${product.price}</p>
+      `;
+
+      container.appendChild(item);
+    });
+  })
+  .catch(error => {
+    console.error("Error loading products:", error);
+  });
+</script>
+</body>
+</html>
