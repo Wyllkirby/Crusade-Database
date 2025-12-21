@@ -3,18 +3,21 @@
     "id": 1,
     "name": "City of Shirts",
     "price": 30.00,
-    "image": "shirt2.png"
+    "image": "shirt2.png",
+    "link": "product1.html"
   },
   {
     "id": 2,
     "name": "Street Sweat Hoodie",
     "price": 55.00,
-    "image": "shirt3.png"
+    "image": "shirt3.png",
+    "link": "product1.html"
   },
   {
     "id": 3,
     "name": "Urban Sweat Shirt",
     "price": 40.00,
-    "image": "shirt4.png"
+    "image": "shirt4.png",
+    "link": "product1.html"
   }
 ]
